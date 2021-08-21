@@ -9,6 +9,7 @@ RUN mkdir -p tmp/sockets
 
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
+
 RUN bundle install
 
 COPY . /app
