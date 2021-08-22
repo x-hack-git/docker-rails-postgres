@@ -10,6 +10,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     apt-get update && apt-get install yarn
 
 ENV RAILS_ENV="production"
+ENV NODE_ENV="production"
 
 WORKDIR /app
 RUN mkdir -p tmp/pids
@@ -21,6 +22,11 @@ COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
 COPY . /app
+
+# アセットのプリコンパイル
+RUN SECRET_KEY_BASE=placeholder bundle exec rails assets:precompile \
+ && yarn cache clean \
+ && rm -rf node_modules tmp/cache
 
 # Add a script to be executed every time the container starts.
 COPY docker/prod/entrypoint.sh /usr/bin/
