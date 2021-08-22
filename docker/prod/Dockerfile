@@ -1,9 +1,9 @@
 FROM ruby:2.6.3
-ENV LANG C.UTF-8
+ENV LANG C.UTF-8 webpacker:install
 
-RUN apt-get update -qq && \
-apt-get install -y nodejs postgresql-client npm build-essential curl apt-transport-https wget yarn && \
-gem install bundler:2.1.4
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client && gem install bundler:2.1.4
+
+ENV RAILS_ENV="production"
 
 WORKDIR /app
 RUN mkdir -p tmp/pids
@@ -17,7 +17,7 @@ RUN bundle install
 COPY . /app
 
 # Add a script to be executed every time the container starts.
-COPY entrypoint.sh /usr/bin/
+COPY docker/prod/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
