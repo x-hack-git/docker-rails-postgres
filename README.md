@@ -1,24 +1,41 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+# Rails アプリを AWS ECS で公開する手順
 
 * Ruby version
+2.6.3
 
-* System dependencies
+* Rails version
+6.1.4
 
-* Configuration
+* DatabaseAdapter
+PostgreSQL 
 
-* Database creation
+# 前提条件・前提知識
 
-* Database initialization
+* AWSにアクセスできるIAMユーザーが作成できている
 
-* How to run the test suite
+* aws cli が導入できている
 
-* Services (job queues, cache servers, search engines, etc.)
+* Docker Desktop アプリが入っている
 
-* Deployment instructions
+# ローカル環境での実行方法
 
-* ...
+Develop環境 Docker ビルドコマンド
+
+```
+$ docker build .
+```
+
+```
+$ docker-compoose up
+```
+
+http://localhost:3000 へアクセス
+
+# AWSのリソース作成手順
+
+https://www.notion.so/AWS-ECR-ECS-Rails-7b2fcbc04a4940ecb4668c7debac207b
+
+```
+$ git clone https://github.com/xhackjp1/docker-rails-postgres.git
+```
+
